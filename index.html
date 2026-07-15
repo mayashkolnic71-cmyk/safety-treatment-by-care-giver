@@ -91,13 +91,16 @@
         let currentLang = 'he';
         let currentStepIndex = 0;
         const mainContainer = document.getElementById('mainContainer');
-        const applauseAudio = new Audio('https://actions.google.com/sounds/v1/crowds/light_applause.ogg');
-        applauseAudio.load();
-        applauseAudio.volume = 0.6;
-
         function playApplauseSound() {
-            applauseAudio.currentTime = 0;
-            applauseAudio.play().catch(e => console.log('Audio play failed:', e));
+            const audio = new Audio('https://www.myinstants.com/media/sounds/applause.mp3');
+            audio.volume = 0.6;
+            audio.play().catch(e => console.log('Audio play failed:', e));
+        }
+
+        function playWrongSound() {
+            const audio = new Audio('https://www.myinstants.com/media/sounds/wrong-answer-sound-effect.mp3');
+            audio.volume = 0.5;
+            audio.play().catch(e => console.log('Audio play failed:', e));
         }
 
         function fireConfetti() {
@@ -328,6 +331,8 @@
                 selectedBtn.classList.add('border-red-500', 'bg-red-50');
                 selectedBtn.querySelector('div').classList.add('bg-red-500', 'text-white');
                 imgContainer.innerHTML = `<img src="${step.imageWrong}" class="w-full max-h-64 object-contain rounded-xl shadow-lg border-4 border-red-500 fade-in">`;
+                
+                playWrongSound();
 
                 feedbackContainer.innerHTML = `
                     <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-xl flex flex-col md:flex-row items-start gap-4 fade-in mt-4 shadow-sm">
